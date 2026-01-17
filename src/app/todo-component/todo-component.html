@@ -1,5 +1,22 @@
 <h2>My First Angular App</h2>
 
+<!-- Form for adding a todo -->
+<div class="todo-form">
+  <div class="form-inputs">
+    <input [(ngModel)]="title" type="text" class="input-title" placeholder="Enter Title" />
+    <input
+      [(ngModel)]="description"
+      type="text"
+      class="input-title"
+      placeholder="Enter Description"
+    />
+  </div>
+  <button (click)="addTodo()" class="submit-button">Add Todo</button>
+</div>
+
 <ul>
-  <li *ngFor="let todo of todos()">{{ todo.title }}</li>
+  <li *ngFor="let todo of todos()">
+    {{ todo.id }}|{{ todo.title }} | {{ todo.description }} | {{ todo.status }} |
+    {{ todo.createdOn }} | {{ todo.updatedOn }}
+  </li>
 </ul>
