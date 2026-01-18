@@ -50,10 +50,16 @@
             <button (click)="markToDoPostpone(todo.id)">
               <ng-icon name="heroClock" class="action-button postpone" />
             </button>
+            <button (click)="removeTodo(todo.id)">
+              <ng-icon name="heroTrash" class="action-button postpone" />
+            </button>
           </ng-container>
           <ng-container *ngIf="todo.status === TodoStatusEnum.POSTPONE">
             <button (click)="markToDoDone(todo.id)">
               <ng-icon name="heroCheckCircle" class="action-button done" />
+            </button>
+            <button (click)="removeTodo(todo.id)">
+              <ng-icon name="heroTrash" class="action-button postpone" />
             </button>
           </ng-container>
         </td>

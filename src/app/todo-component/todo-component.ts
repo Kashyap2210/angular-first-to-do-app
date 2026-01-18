@@ -2,7 +2,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroCheckCircle, heroClock, heroUsers } from '@ng-icons/heroicons/outline';
+import { heroCheckCircle, heroClock, heroTrash, heroUsers } from '@ng-icons/heroicons/outline';
 import { TodoService, TodoStatusEnum } from './todo-service';
 
 @Component({
@@ -11,7 +11,7 @@ import { TodoService, TodoStatusEnum } from './todo-service';
   templateUrl: './todo-component.html',
   styleUrls: ['./todo-component.css'],
   standalone: true,
-  viewProviders: [provideIcons({ heroUsers, heroCheckCircle, heroClock })],
+  viewProviders: [provideIcons({ heroUsers, heroCheckCircle, heroClock, heroTrash })],
 })
 export class TodoComponent {
   private readonly todoService = inject(TodoService);
@@ -26,10 +26,6 @@ export class TodoComponent {
 
   addTodo() {
     this.todoService.addTodo({ title: this.title, description: this.description });
-  }
-
-  updateTodo(id: number) {
-    this.todoService.updateTodo(id, { title: this.title, description: this.description });
   }
 
   removeTodo(id: number) {
