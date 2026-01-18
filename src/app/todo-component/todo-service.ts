@@ -33,19 +33,23 @@ export class TodoService {
   readonly todos = this._todos.asReadonly();
 
   addTodo(todo: IToDoCreateDto) {
-    this._todos.update((todos) => [
-      ...todos,
-      {
-        ...todo,
-        id: Date.now(),
-        createdOn: new Date(),
-        updatedOn: new Date(),
-        status: TodoStatusEnum.PENDING,
-      },
-    ]);
+    this.validateToDo(todo);
+
+    const todoEntity: IToDo = {
+      ...todo,
+      id: Date.now(),
+      createdOn: new Date(),
+      updatedOn: new Date(),
+      status: TodoStatusEnum.PENDING,
+    };
+
+    this._todos.update((todos) => [...todos, todoEntity]);
   }
 
   updateTodo(id: number, toDoUpdateDto: ITodoUpdateDto) {
+    this.validateId(id);
+    this.validateToDo(toDoUpdateDto);
+
     this._todos.update((todos) =>
       todos.map((todo) =>
         todo.id === id
@@ -67,5 +71,26 @@ export class TodoService {
     return this.todos().filter((todo) =>
       Object.entries(filter).every(([key, value]) => todo[key as keyof IToDo] === value),
     );
+  }
+
+  validateToDo(todo: Partial<IToDo>) {
+    const keysToValidate: (keyof IToDo)[] = ['title', 'description'];
+
+    if (todo['status'] && !Object.values(TodoStatusEnum).includes(todo['status'])) {
+      throw new Error(`Todo Status should be from: ${Object.values(TodoStatusEnum).join(', ')}`);
+    }
+
+    for (const key of keysToValidate) {
+      // we know from the interface that values for 'keysToValidate' are going to be string
+      if (key in todo && (todo[key] as string)?.trim() === '') {
+        throw new Error(`${key} cannot be empty.`);
+      }
+    }
+  }
+
+  validateId(id: number) {
+    if (!(this.todos().filter((todo) => todo.id === id).length > 0)) {
+      throw new Error(`Todo with id: ${id} does not exists. Please try with a valid id`);
+    }
   }
 }
