@@ -36,31 +36,60 @@
           'row-postpone': todo.status === TodoStatusEnum.POSTPONE,
         }"
       >
-        <!-- <td>{{ todo.id }}</td> -->
-        <td>{{ todo.title }}</td>
-        <td>{{ todo.description }}</td>
+        <td>
+          <ng-container *ngIf="editingTodoId !== todo.id; else editTitleTpl">
+            {{ todo.title }}
+          </ng-container>
+
+          <!-- EDIT MODE -->
+          <ng-template #editTitleTpl>
+            <input [(ngModel)]="editTitle" class="input-edit" />
+          </ng-template>
+        </td>
+        <td>
+          <ng-container *ngIf="editingTodoId !== todo.id; else editDescTpl">
+            {{ todo.description }}
+          </ng-container>
+
+          <ng-template #editDescTpl>
+            <input [(ngModel)]="editDescription" class="input-edit" />
+          </ng-template>
+        </td>
         <td>{{ todo.status }}</td>
         <td>{{ todo.createdOn | date: 'dd-MM-yy HH:mm' }}</td>
         <td>{{ todo.updatedOn | date: 'dd-MM-yy HH:mm' }}</td>
+
         <td>
-          <ng-container *ngIf="todo.status === TodoStatusEnum.PENDING">
-            <button (click)="markToDoDone(todo.id)">
-              <ng-icon name="heroCheckCircle" class="action-button done" />
-            </button>
-            <button (click)="markToDoPostpone(todo.id)">
-              <ng-icon name="heroClock" class="action-button postpone" />
-            </button>
-            <button (click)="removeTodo(todo.id)">
-              <ng-icon name="heroTrash" class="action-button postpone" />
-            </button>
+          <ng-container *ngIf="editingTodoId !== todo.id">
+            <ng-container *ngIf="todo.status === TodoStatusEnum.PENDING">
+              <button (click)="startEdit(todo)">
+                <ng-icon name="heroPencilSquare" class="action-button editing" />
+              </button>
+              <button (click)="markToDoDone(todo.id)">
+                <ng-icon name="heroCheckCircle" class="action-button done" />
+              </button>
+              <button (click)="markToDoPostpone(todo.id)">
+                <ng-icon name="heroClock" class="action-button postpone" />
+              </button>
+              <button (click)="removeTodo(todo.id)">
+                <ng-icon name="heroTrash" class="action-button postpone" />
+              </button>
+            </ng-container>
+            <ng-container *ngIf="todo.status === TodoStatusEnum.POSTPONE">
+              <button (click)="startEdit(todo)">
+                <ng-icon name="heroPencilSquare" />
+              </button>
+              <button (click)="markToDoDone(todo.id)">
+                <ng-icon name="heroCheckCircle" class="action-button done" />
+              </button>
+              <button (click)="removeTodo(todo.id)">
+                <ng-icon name="heroTrash" />
+              </button>
+            </ng-container>
           </ng-container>
-          <ng-container *ngIf="todo.status === TodoStatusEnum.POSTPONE">
-            <button (click)="markToDoDone(todo.id)">
-              <ng-icon name="heroCheckCircle" class="action-button done" />
-            </button>
-            <button (click)="removeTodo(todo.id)">
-              <ng-icon name="heroTrash" class="action-button postpone" />
-            </button>
+          <ng-container *ngIf="editingTodoId === todo.id">
+            <button (click)="saveEdit(todo.id)">💾</button>
+            <button (click)="cancelEdit()">❌</button>
           </ng-container>
         </td>
       </tr>

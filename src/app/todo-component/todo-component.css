@@ -111,3 +111,15 @@
   background-color: #fff3cd; /* light yellow */
   color: #856404;
 }
+
+.editing {
+  background-color: pink;
+}
+
+.input-edit {
+  border: 1px solid black;
+  height: 2rem;
+  width: 10rem;
+  padding: 1rem;
+  border-radius: 5px;
+}
