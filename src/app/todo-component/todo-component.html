@@ -72,23 +72,23 @@
                 <ng-icon name="heroClock" class="action-button postpone" />
               </button>
               <button (click)="removeTodo(todo.id)">
-                <ng-icon name="heroTrash" class="action-button postpone" />
+                <ng-icon name="heroTrash" class="action-button delete" />
               </button>
             </ng-container>
             <ng-container *ngIf="todo.status === TodoStatusEnum.POSTPONE">
               <button (click)="startEdit(todo)">
-                <ng-icon name="heroPencilSquare" />
+                <ng-icon name="heroPencilSquare" class="action-button edit" />
               </button>
               <button (click)="markToDoDone(todo.id)">
                 <ng-icon name="heroCheckCircle" class="action-button done" />
               </button>
               <button (click)="removeTodo(todo.id)">
-                <ng-icon name="heroTrash" />
+                <ng-icon name="heroTrash" class="action-button delete" />
               </button>
             </ng-container>
           </ng-container>
           <ng-container *ngIf="editingTodoId === todo.id">
-            <button (click)="saveEdit(todo.id)">💾</button>
+            <button (click)="saveEdit(todo.id)" class="action-button done">💾</button>
             <button (click)="cancelEdit()">❌</button>
           </ng-container>
         </td>

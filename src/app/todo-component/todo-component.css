@@ -123,3 +123,15 @@
   padding: 1rem;
   border-radius: 5px;
 }
+
+.edit {
+  background-color: burlywood;
+  width: 2rem;
+  height: 2rem;
+}
+
+.delete {
+  background-color: red;
+  width: 2rem;
+  height: 2rem;
+}
