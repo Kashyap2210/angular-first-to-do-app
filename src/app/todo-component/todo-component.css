@@ -76,3 +76,38 @@
 .todo-table tr:nth-child(even) {
   background-color: #fafafa;
 }
+
+.action-button {
+  width: 2rem;
+  height: 2rem;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.done {
+  background-color: greenyellow;
+  width: 2rem;
+  height: 2rem;
+}
+
+.postpone {
+  background-color: orange;
+  width: 2rem;
+  height: 2rem;
+}
+
+.row-done {
+  background-color: #d4edda; /* light green */
+  color: #155724; /* darker text for contrast */
+}
+
+/* POSTPONE rows */
+.row-postpone {
+  background-color: #fff3cd; /* light yellow */
+  color: #856404;
+}

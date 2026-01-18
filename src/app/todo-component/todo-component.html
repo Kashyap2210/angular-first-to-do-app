@@ -29,13 +29,34 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let todo of todos()">
+      <tr
+        *ngFor="let todo of todos()"
+        [ngClass]="{
+          'row-done': todo.status === TodoStatusEnum.DONE,
+          'row-postpone': todo.status === TodoStatusEnum.POSTPONE,
+        }"
+      >
         <td>{{ todo.id }}</td>
         <td>{{ todo.title }}</td>
         <td>{{ todo.description }}</td>
         <td>{{ todo.status }}</td>
         <td>{{ todo.createdOn | date: 'dd-MM-yy HH:mm' }}</td>
         <td>{{ todo.updatedOn | date: 'dd-MM-yy HH:mm' }}</td>
+        <td>
+          <ng-container *ngIf="todo.status === TodoStatusEnum.PENDING">
+            <button (click)="markToDoDone(todo.id)">
+              <ng-icon name="heroCheckCircle" class="action-button done" />
+            </button>
+            <button (click)="markToDoPostpone(todo.id)">
+              <ng-icon name="heroClock" class="action-button postpone" />
+            </button>
+          </ng-container>
+          <ng-container *ngIf="todo.status === TodoStatusEnum.POSTPONE">
+            <button (click)="markToDoDone(todo.id)">
+              <ng-icon name="heroCheckCircle" class="action-button done" />
+            </button>
+          </ng-container>
+        </td>
       </tr>
     </tbody>
   </table>
