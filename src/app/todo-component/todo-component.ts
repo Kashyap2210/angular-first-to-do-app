@@ -1,11 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TodoService, TodoStatusEnum } from './todo-service';
 
 @Component({
   selector: 'app-todo-component',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DatePipe],
   templateUrl: './todo-component.html',
   styleUrls: ['./todo-component.css'],
   standalone: true,

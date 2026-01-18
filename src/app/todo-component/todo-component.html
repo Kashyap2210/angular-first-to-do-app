@@ -1,4 +1,4 @@
-<h2>My First Angular App</h2>
+<div class="heading">My First Angular App</div>
 
 <!-- Form for adding a todo -->
 <div class="todo-form">
@@ -14,9 +14,29 @@
   <button (click)="addTodo()" class="submit-button">Add Todo</button>
 </div>
 
-<ul>
-  <li *ngFor="let todo of todos()">
-    {{ todo.id }}|{{ todo.title }} | {{ todo.description }} | {{ todo.status }} |
-    {{ todo.createdOn }} | {{ todo.updatedOn }}
-  </li>
-</ul>
+<div class="todo-table-container">
+  <table class="todo-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Created On</th>
+        <th>Updated On</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let todo of todos()">
+        <td>{{ todo.id }}</td>
+        <td>{{ todo.title }}</td>
+        <td>{{ todo.description }}</td>
+        <td>{{ todo.status }}</td>
+        <td>{{ todo.createdOn | date: 'dd-MM-yy HH:mm' }}</td>
+        <td>{{ todo.updatedOn | date: 'dd-MM-yy HH:mm' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
